@@ -83,10 +83,12 @@ def distance(a, b):
 
 def calc_score(abgabe, n):
     S = 0
+    S0 = 0
     N = 0
     stations = []
     with open(f"inputs/input{n}.txt") as f:
         S = int(f.readline().strip())
+        S0 = S
         N = int(f.readline().strip())
         for l in f:
             x, y = map(int, l.strip().split())
@@ -107,7 +109,7 @@ def calc_score(abgabe, n):
         if len(G.nodes) < N:
             return False, "Nicht alle Bahnhöfe wurden angebunden", 0
         fw = nx.floyd_warshall_numpy(G)
-        return True, np.sum(fw) / fw.size, int(S * fw.size / np.sum(fw))
+        return True, np.sum(fw) / fw.size, int(S0 * fw.size / np.sum(fw))
 
     except Exception as E:
         return False, "Fehler im Eingabe-Format", 0
